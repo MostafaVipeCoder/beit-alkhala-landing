@@ -228,6 +228,9 @@ function submitBooking(form) {
   if (data.parent.length < 2 || data.child.length < 2) return { ok: false, error: 'missing' };
   if (!/^01\d{9}$/.test(phone)) return { ok: false, error: 'phone' };
   if (!(data.ageMonths >= 0 && data.ageMonths <= 120)) return { ok: false, error: 'age' };
+  // Optional, but if given it must be after today (Cairo time).
+  const today = Utilities.formatDate(new Date(), 'Africa/Cairo', 'yyyy-MM-dd');
+  if (data.start && !(/^\d{4}-\d{2}-\d{2}$/.test(data.start) && data.start > today)) return { ok: false, error: 'start' };
   if (!form.consent) return { ok: false, error: 'consent' };
 
   // Same phone again within 10 minutes = double click / resend.

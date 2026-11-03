@@ -185,7 +185,7 @@
                   <select name="pkg" id="pkg-select"></select>
                 </label>
                 <label>عايزين تبدأوا إمتى؟ <small>تقريبًا</small>
-                  <input name="start" type="month" />
+                  <input name="start" type="date" />
                 </label>
               </div>
               <label>عرفتونا منين؟
@@ -314,6 +314,12 @@
       const pkgSelect = $('pkg-select');
       pkgSelect.appendChild(new Option('لسه مش متأكدين', 'لسه مش متأكدين'));
       CONFIG.packages.concat(CONFIG.extras).forEach((p) => pkgSelect.appendChild(new Option(p.name, p.name)));
+      // Start date: tomorrow at the earliest (local date, not UTC).
+      const isoDay = (d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      const today = isoDay(new Date());
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      document.querySelector('[name=start]').min = isoDay(tomorrow);
       const sourceSelect = $('source-select');
       sourceSelect.appendChild(new Option('اختاروا', ''));
       CONFIG.sources.forEach((s) => sourceSelect.appendChild(new Option(s, s)));
@@ -357,6 +363,7 @@
         phone: 'رقم الموبايل لازم يكون 11 رقم ويبدأ بـ 01.',
         age: 'اختاروا سن الطفل.',
         consent: 'علّموا على الموافقة على التواصل.',
+        start: 'تاريخ البداية لازم يكون بعد النهاردة.',
         failed: 'حصلت مشكلة وإحنا بنبعت. جرّبوا تاني بعد شوية.',
       };
       const form = $('form');
@@ -383,6 +390,7 @@
         };
         if (String(data.parent).trim().length < 2 || String(data.child).trim().length < 2) return showError('missing');
         if (!/^01\d{9}$/.test(String(data.phone).replace(/[\s-]/g, ''))) return showError('phone');
+        if (data.start && !(/^\d{4}-\d{2}-\d{2}$/.test(data.start) && data.start > today)) return showError('start');
         if (!data.consent) return showError('consent');
         msg.className = 'msg';
         btn.disabled = true;
