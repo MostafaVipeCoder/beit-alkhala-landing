@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>بيت الخالة — احجزوا مكانكم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --pink: #e01560;
+        --pink-brand: #f02068;
+        --pink-tint: #ffe9f1;
+        --blue: #58a8f8;
+        --blue-tint: #eaf4ff;
+        --ink: #24406b;
+        --ink-soft: #5b6f94;
+        --line: #dce8f7;
+        --ok: #136b47;
+        --ok-tint: #e3f7ee;
+        --danger: #b4232a;
+        --radius: 20px;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: 'Cairo', system-ui, sans-serif;
+        color: var(--ink);
+        background: #f7faff;
+        line-height: 1.7;
+        font-size: 17px;
+      }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+      a { color: inherit; }
+      .wrap { width: min(1100px, 100% - 32px); margin-inline: auto; }
+      h1, h2, h3 { margin: 0; line-height: 1.3; }
+      h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 900; margin-bottom: 8px; }
+      .lead { color: var(--ink-soft); font-size: 18px; margin: 0 0 24px; }
+      section { padding: 56px 0; }
+
+      /* hero */
+      .hero { background: linear-gradient(180deg, #fff 0%, var(--blue-tint) 100%); padding: 32px 0 56px; text-align: center; }
+      .hero .logo { width: min(240px, 60vw); height: auto; display: block; margin: 0 auto 8px; }
+      .hero h1 { font-size: clamp(30px, 6vw, 48px); font-weight: 900; }
+      .hero p { font-size: clamp(18px, 2.6vw, 22px); color: var(--ink-soft); margin: 8px auto 24px; max-width: 620px; }
+      .soon { display: inline-block; background: var(--pink-tint); color: #c8124f; font-weight: 800; padding: 6px 18px; border-radius: 999px; margin-bottom: 16px; }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        min-height: 52px; padding: 10px 28px; border-radius: 999px; border: 2px solid transparent;
+        font: inherit; font-size: 18px; font-weight: 800; text-decoration: none; cursor: pointer;
+      }
+      .btn.primary { background: var(--pink); color: #fff; }
+      .btn.primary:hover { background: #c8124f; }
+      .btn.secondary { background: #fff; color: var(--ink); border-color: var(--blue); }
+      .btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgba(240, 32, 104, 0.4); outline-offset: 2px; }
+      .hero .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+      .facts { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+      .fact { background: #fff; border: 2px solid var(--line); border-radius: 999px; padding: 6px 16px; font-weight: 700; }
+
+      /* cards */
+      .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+      .card { background: #fff; border: 2px solid var(--line); border-radius: var(--radius); padding: 22px; }
+      .feature .icon { width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; background: var(--pink-tint); color: var(--pink); margin-bottom: 10px; }
+      .feature .icon svg { width: 26px; height: 26px; }
+      .feature h3 { font-size: 19px; font-weight: 800; margin-bottom: 4px; }
+      .feature p { margin: 0; color: var(--ink-soft); }
+
+      /* packages */
+      .pkg { position: relative; display: flex; flex-direction: column; gap: 6px; }
+      .pkg.offer { border-color: var(--pink-brand); background: var(--pink-tint); }
+      .pkg .name { font-size: 20px; font-weight: 800; }
+      .pkg .price { font-size: 34px; font-weight: 900; color: var(--pink); }
+      .pkg .price small { font-size: 16px; color: var(--ink-soft); font-weight: 700; }
+      .pkg ul { margin: 6px 0 0; padding-inline-start: 18px; color: var(--ink-soft); }
+      .tag { align-self: flex-start; background: var(--ok-tint); color: var(--ok); border-radius: 999px; padding: 2px 12px; font-size: 14px; font-weight: 800; }
+      .tag.pink { background: #fff; color: #c8124f; }
+      .notes { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 20px; }
+      .note { background: var(--blue-tint); border-radius: 16px; padding: 14px 18px; font-weight: 700; }
+      .num { font-variant-numeric: tabular-nums; unicode-bidi: isolate; }
+
+      /* form */
+      .booking { background: #fff; }
+      form { display: grid; gap: 16px; }
+      .row2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      label { display: flex; flex-direction: column; gap: 6px; font-weight: 700; }
+      label small { font-weight: 500; color: var(--ink-soft); }
+      input, select, textarea {
+        font: inherit; font-size: 17px; color: var(--ink);
+        min-height: 50px; padding: 10px 14px; border: 2px solid var(--line); border-radius: 14px; background: #fff; width: 100%;
+      }
+      input[type='tel'] { direction: ltr; text-align: right; }
+      textarea { min-height: 96px; resize: vertical; }
+      .age { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .check { flex-direction: row; align-items: flex-start; gap: 10px; font-weight: 600; }
+      .check input { width: 22px; height: 22px; min-height: 0; margin-top: 4px; accent-color: var(--pink); }
+      .hp { position: absolute; inset-inline-start: -9999px; width: 1px; height: 1px; overflow: hidden; }
+      .msg { border-radius: 14px; padding: 14px 18px; font-weight: 800; display: none; }
+      .msg.error { display: block; background: #fdecec; color: var(--danger); border: 2px solid #e5484d; }
+      .msg.ok { display: block; background: var(--ok-tint); color: var(--ok); border: 2px solid #2eb67d; }
+      .done { text-align: center; padding: 32px 16px; display: none; }
+      .done h3 { font-size: 26px; font-weight: 900; margin-bottom: 8px; }
+      .done .ref { display: inline-block; font-size: 24px; font-weight: 900; color: var(--pink); background: var(--pink-tint); padding: 6px 18px; border-radius: 999px; direction: ltr; }
+
+      /* faq + footer */
+      details { background: #fff; border: 2px solid var(--line); border-radius: 16px; padding: 14px 18px; }
+      details + details { margin-top: 10px; }
+      summary { font-weight: 800; cursor: pointer; }
+      details p { margin: 8px 0 0; color: var(--ink-soft); }
+      footer { background: var(--ink); color: #fff; padding: 32px 0; text-align: center; }
+      footer a { color: #fff; }
+      footer .contact { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+      .sticky-cta { position: fixed; inset-inline: 16px; bottom: 16px; z-index: 10; display: none; }
+      @media (max-width: 640px) {
+        body { font-size: 16px; }
+        section { padding: 40px 0; }
+        .sticky-cta { display: flex; }
+        footer { padding-bottom: 96px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wrap">
+        <?!= include('Logo'); ?>
+        <span class="soon" id="soon"></span>
+        <h1 id="title"></h1>
+        <p id="tagline"></p>
+        <div class="actions">
+          <a class="btn primary" href="#booking">احجزوا مكان لطفلكم</a>
+          <a class="btn secondary" href="#packages">شوفوا الاشتراكات</a>
+        </div>
+        <div class="facts" id="facts"></div>
+      </div>
+    </header>
+
+    <main>
+      <section id="about">
+        <div class="wrap">
+          <h2>إيه هي بيت الخالة؟</h2>
+          <p class="lead">حضانة صباحية دافية لأطفال صغيرين، بعدد محدود علشان كل طفل ياخد اهتمامه. بنهتم بالأمان والصحة والتواصل مع الأهل في كل خطوة.</p>
+          <div class="grid" id="features"></div>
+        </div>
+      </section>
+
+      <section id="packages" style="background: #fff">
+        <div class="wrap">
+          <h2>الاشتراكات والأسعار</h2>
+          <p class="lead">كل الباقات فترة صباحية 7 ساعات، وأيام الحضور من الأحد للخميس. كل ما الباقة أطول، سعر اليوم بيقل.</p>
+          <div class="grid" id="pkgs"></div>
+          <div class="notes" id="pkg-notes"></div>
+        </div>
+      </section>
+
+      <section id="booking" class="booking">
+        <div class="wrap" style="max-width: 760px">
+          <h2>احجزوا مكان مسبق</h2>
+          <p class="lead">سيبوا بياناتكم وهنكلمكم أول ما نفتح نكمّل التسجيل سوا. الحجز المسبق مجاني ومش بيلزمكم بحاجة.</p>
+          <div class="card">
+            <form id="form" novalidate>
+              <div class="row2">
+                <label>اسم ولي الأمر
+                  <input name="parent" autocomplete="name" required />
+                </label>
+                <label>رقم الموبايل <small>11 رقم يبدأ بـ 01</small>
+                  <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="01xxxxxxxxx" />
+                </label>
+              </div>
+              <div class="row2">
+                <label>اسم الطفل
+                  <input name="child" required />
+                </label>
+                <label>سن الطفل
+                  <span class="age">
+                    <select name="years" aria-label="سنين"></select>
+                    <select name="months" aria-label="شهور"></select>
+                  </span>
+                </label>
+              </div>
+              <div class="row2">
+                <label>الباقة اللي مهتمين بيها
+                  <select name="pkg" id="pkg-select"></select>
+                </label>
+                <label>عايزين تبدأوا إمتى؟ <small>تقريبًا</small>
+                  <input name="start" type="month" />
+                </label>
+              </div>
+              <label>عرفتونا منين؟
+                <select name="source" id="source-select"></select>
+              </label>
+              <label>أي ملاحظات <small>(حساسية، أسئلة، أي حاجة حابين نعرفها)</small>
+                <textarea name="notes" maxlength="500"></textarea>
+              </label>
+              <div class="hp" aria-hidden="true">
+                <label>Website <input name="website" tabindex="-1" autocomplete="off" /></label>
+              </div>
+              <label class="check">
+                <input type="checkbox" name="consent" />
+                <span>موافقين إن الحضانة تتواصل معانا على الرقم ده بخصوص الحجز. بياناتكم بتستخدم للحجز بس ومش بتتشارك مع حد.</span>
+              </label>
+              <div class="msg" id="msg" role="alert"></div>
+              <button class="btn primary" type="submit" id="submit">ابعتوا طلب الحجز</button>
+            </form>
+            <div class="done" id="done" role="status">
+              <h3>تمام، طلبكم وصل</h3>
+              <p>هنكلمكم قريب على رقمكم. احتفظوا برقم الطلب ده:</p>
+              <span class="ref" id="ref"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="wrap" style="max-width: 860px">
+          <h2>أسئلة بتتكرر</h2>
+          <div id="faqs"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <strong id="footer-name"></strong>
+        <div class="contact" id="contact"></div>
+      </div>
+    </footer>
+
+    <a class="btn primary sticky-cta" href="#booking">احجزوا مكان لطفلكم</a>
+
+    <script>
+      const CONFIG = <?!= JSON.stringify(config) ?>;
+      const $ = (id) => document.getElementById(id);
+      const fmt = (n) => Number(n).toLocaleString('en-US');
+      // Arabic counting: 3-10 takes the plural, 11+ the singular.
+      const days = (n) => (n >= 3 && n <= 10 ? n + ' أيام' : n + ' يوم');
+      const el = (tag, cls, text) => {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (text != null) e.textContent = text;
+        return e;
+      };
+      const ICONS = {
+        shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>',
+        heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
+        users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+        phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+        clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+        star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+      };
+
+      // ---- hero
+      $('soon').textContent = 'هنفتح ' + CONFIG.opening;
+      $('title').textContent = CONFIG.name;
+      $('tagline').textContent = CONFIG.tagline;
+      $('footer-name').textContent = CONFIG.name + ' — ' + CONFIG.tagline;
+      [CONFIG.days, CONFIG.hours, 'عدد محدود: ' + CONFIG.capacity + ' طفل', CONFIG.ageRange].filter(Boolean).forEach((f) => $('facts').appendChild(el('span', 'fact', f)));
+
+      // ---- features
+      [
+        ['shield', 'استلام آمن', 'الطفل بيخرج بس مع شخص مسجل ومصرح له، بصورته وصورة بطاقته اللي بنطابقها وقت الاستلام.'],
+        ['heart', 'متابعة صحية', 'بنسجل الحساسية والملاحظات الصحية لكل طفل، وأي حاجة تحصل بنبلّغكم بيها على طول.'],
+        ['users', 'اهتمام بكل طفل', 'عدد الأطفال محدود (' + CONFIG.capacity + ' طفل) علشان كل طفل ياخد وقته واهتمامه.'],
+        ['clock', 'مواعيد ثابتة', CONFIG.hours + '، ' + CONFIG.days + '. وفيه كمان يومي أو بالساعة لو محتاجين يوم زيادة.'],
+        ['phone', 'اشتراك مرن', 'لو حصل ظرف تقدروا تجمدوا الاشتراك لحد أسبوع، والأيام بتترحّل من غير ما تضيع.'],
+        ['star', 'أسعار واضحة', 'باقات بأسعار ثابتة ومعلنة، وخصم للإخوات، وتقسيط مريح.'],
+      ].forEach(([icon, title, text]) => {
+        const c = el('div', 'card feature');
+        const i = el('div', 'icon');
+        i.innerHTML = ICONS[icon];
+        c.append(i, el('h3', null, title), el('p', null, text));
+        $('features').appendChild(c);
+      });
+
+      // ---- packages
+      CONFIG.packages.forEach((p) => {
+        const perDay = Math.round(p.price / p.days);
+        const save = Math.round(((CONFIG.dayRate * p.days - p.price) / (CONFIG.dayRate * p.days)) * 100);
+        const c = el('div', 'card pkg' + (p.offer ? ' offer' : ''));
+        if (p.note) c.appendChild(el('span', 'tag pink', p.note));
+        c.appendChild(el('span', 'name', p.name));
+        const price = el('span', 'price num');
+        price.append(fmt(p.price) + ' ', el('small', null, 'جنيه'));
+        c.appendChild(price);
+        c.appendChild(el('span', 'tag', 'توفير ' + save + '%'));
+        const ul = el('ul');
+        ul.append(el('li', null, days(p.days) + ' حضور'), el('li', null, fmt(perDay) + ' جنيه لليوم'));
+        c.appendChild(ul);
+        $('pkgs').appendChild(c);
+      });
+      CONFIG.extras.forEach((x) => {
+        const c = el('div', 'card pkg');
+        c.appendChild(el('span', 'name', x.name));
+        const price = el('span', 'price num');
+        price.append(fmt(x.price) + ' ', el('small', null, 'جنيه ' + x.unit));
+        c.appendChild(price);
+        $('pkgs').appendChild(c);
+      });
+      [
+        'خصم ' + CONFIG.siblingDiscount + '% للإخوات المشتركين معانا.',
+        'تقدروا تدفعوا على 3 أقساط: ' + CONFIG.installments.join(' / ') + '%، أو مرة واحدة في أي وقت.',
+        'تجميد الاشتراك لحد أسبوع لو حصل ظرف، والأيام بتترحّل.',
+        'مفيش مصاريف تسجيل.',
+      ].forEach((n) => $('pkg-notes').appendChild(el('div', 'note', n)));
+
+      // ---- form options
+      const years = document.querySelector('[name=years]');
+      const months = document.querySelector('[name=months]');
+      for (let y = 0; y <= 6; y++) years.appendChild(new Option(y === 0 ? 'أقل من سنة' : y === 1 ? 'سنة' : y === 2 ? 'سنتين' : y + ' سنين', y));
+      for (let m = 0; m <= 11; m++) months.appendChild(new Option(m === 0 ? 'بالظبط' : m === 1 ? 'وشهر' : m === 2 ? 'وشهرين' : m <= 10 ? 'و' + m + ' شهور' : 'و' + m + ' شهر', m));
+      years.value = '2';
+      const pkgSelect = $('pkg-select');
+      pkgSelect.appendChild(new Option('لسه مش متأكدين', 'لسه مش متأكدين'));
+      CONFIG.packages.concat(CONFIG.extras).forEach((p) => pkgSelect.appendChild(new Option(p.name, p.name)));
+      const sourceSelect = $('source-select');
+      sourceSelect.appendChild(new Option('اختاروا', ''));
+      CONFIG.sources.forEach((s) => sourceSelect.appendChild(new Option(s, s)));
+
+      // ---- faq
+      [
+        ['الحجز المسبق بيلزمني بحاجة؟', 'لأ خالص. الحجز المسبق بيضمن إننا نكلمكم الأول أول ما نفتح، والتسجيل والدفع بيكونوا لما تيجوا.'],
+        ['الأيام اللي الطفل بيغيب فيها بتتحسب؟', 'الاشتراك بيتحسب بأيام الشغل (الأحد للخميس) سواء الطفل حضر أو غاب. لو فيه ظرف تقدروا تجمدوا الاشتراك لحد أسبوع.'],
+        ['مين يقدر يستلم الطفل؟', 'بس الأشخاص اللي بتسجلوهم معانا كمصرح لهم بالاستلام، بصورة الشخص وصورة بطاقته.'],
+        ['لو عايز يوم زيادة بس؟', 'فيه اشتراك يومي بـ ' + fmt(CONFIG.extras[0].price) + ' جنيه، أو بالساعة بـ ' + fmt(CONFIG.extras[1].price) + ' جنيه.'],
+        ['لو عندي أكتر من طفل؟', 'فيه خصم ' + CONFIG.siblingDiscount + '% للإخوات.'],
+      ].forEach(([q, a]) => {
+        const d = el('details');
+        d.append(el('summary', null, q), el('p', null, a));
+        $('faqs').appendChild(d);
+      });
+
+      // ---- contact
+      if (CONFIG.phone) {
+        const a = el('a', 'num', CONFIG.phone);
+        a.href = 'tel:' + CONFIG.phone;
+        $('contact').appendChild(a);
+      }
+      if (CONFIG.whatsapp) {
+        const a = el('a', null, 'واتساب');
+        a.href = 'https://wa.me/' + CONFIG.whatsapp;
+        a.rel = 'noopener';
+        $('contact').appendChild(a);
+      }
+      if (CONFIG.address) $('contact').appendChild(el('span', null, CONFIG.address));
+      if (CONFIG.mapUrl) {
+        const a = el('a', null, 'الموقع على الخريطة');
+        a.href = CONFIG.mapUrl;
+        a.rel = 'noopener';
+        $('contact').appendChild(a);
+      }
+
+      // ---- submit
+      const ERRORS = {
+        missing: 'اكتبوا اسم ولي الأمر واسم الطفل.',
+        phone: 'رقم الموبايل لازم يكون 11 رقم ويبدأ بـ 01.',
+        age: 'اختاروا سن الطفل.',
+        consent: 'علّموا على الموافقة على التواصل.',
+        failed: 'حصلت مشكلة وإحنا بنبعت. جرّبوا تاني بعد شوية.',
+      };
+      const form = $('form');
+      const msg = $('msg');
+      const btn = $('submit');
+      const showError = (code) => {
+        msg.className = 'msg error';
+        msg.textContent = ERRORS[code] || ERRORS.failed;
+      };
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const f = new FormData(form);
+        const data = {
+          parent: f.get('parent'),
+          phone: f.get('phone'),
+          child: f.get('child'),
+          ageMonths: Number(f.get('years')) * 12 + Number(f.get('months')),
+          pkg: f.get('pkg'),
+          start: f.get('start'),
+          source: f.get('source'),
+          notes: f.get('notes'),
+          consent: f.get('consent') === 'on',
+          website: f.get('website'),
+        };
+        if (String(data.parent).trim().length < 2 || String(data.child).trim().length < 2) return showError('missing');
+        if (!/^01\d{9}$/.test(String(data.phone).replace(/[\s-]/g, ''))) return showError('phone');
+        if (!data.consent) return showError('consent');
+        msg.className = 'msg';
+        btn.disabled = true;
+        btn.textContent = 'بنبعت...';
+        send(data)
+          .then((r) => {
+            btn.disabled = false;
+            btn.textContent = 'ابعتوا طلب الحجز';
+            if (!r || !r.ok) return showError(r && r.error);
+            form.style.display = 'none';
+            $('ref').textContent = r.ref;
+            $('done').style.display = 'block';
+            $('done').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          })
+          .catch(() => {
+            btn.disabled = false;
+            btn.textContent = 'ابعتوا طلب الحجز';
+            showError('failed');
+          });
+      });
+
+      // Served by Apps Script: google.script.run. Hosted elsewhere (GitHub Pages):
+      // POST to the web app as text/plain (no CORS preflight) and without cookies.
+      function send(data) {
+        if (window.google && google.script && google.script.run) {
+          return new Promise((resolve, reject) => google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).submitBooking(data));
+        }
+        return fetch(CONFIG.bookingUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(data),
+          credentials: 'omit',
+          redirect: 'follow',
+        }).then((res) => res.json());
+      }
+    </script>
+  </body>
+</html>
